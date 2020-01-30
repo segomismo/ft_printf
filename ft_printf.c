@@ -6,23 +6,21 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:09:37 by rufranci          #+#    #+#             */
-/*   Updated: 2020/01/29 16:35:25 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/01/30 17:36:44 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <string.h>
 #include "ft_printf.h"
 #include "libft/libft.h"
-#include <unistd.h>
 
-int			ft_printf(const char *moha, ...)
+int		ft_printf(const char *moha, ...)
 {
-	int	i;
-	t_printf *pack;
+	int			nuar;
+	int			i;
+	t_printf	*pack;
+	char		buff[100];
 
+	nuar = 0;
 	if (!(pack = malloc(sizeof(t_printf))))
 		return (-1);
 	pack->size = 0;
@@ -33,13 +31,22 @@ int			ft_printf(const char *moha, ...)
 		pack->size += write(1, &moha[i], 1);
 		i++;
 	}
-	printf("%d", pack->size);
+	i++;
+	if (moha[i] == 'c')
+	{
+		buff[nuar] = (char)pack->va_arg(arg, int);
+	}
+	//printf("%d", pack->c);
+	printf("%c", buff[nuar]);
 
 	return (i);
 }
 
-int 		main()
+int		main(void)
 {
-	ft_printf("helloworld");
+	char	a;
+
+	a = 'w';
+	ft_printf("helloworld%c", a);
 	return (0);
 }
