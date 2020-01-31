@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/01/30 16:59:48 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:54:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef	struct t_printf {
 	int		c;
 	char	*ce;
 	int		size;
-} t_printf;
+	int		cont;
+}t_printf;
 #endif
 
