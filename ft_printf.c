@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/05 14:02:51 by marvin           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:04:58 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
 #include "libft/libft.h"
+
 void	isnegative(int *n, int *negative)
 {
 	if (*n < 0)
@@ -116,6 +117,30 @@ char	*ft_itohex(int	a)//convierte un int en una cadena de ints en base 16
 	return ((char*)ret);
 }
 
+char	*ft_itohex3(unsigned long int	a)//convierte un int en una cadena de ints en base 16
+{
+	unsigned long int		b;
+	int		len;
+	char	*ret;
+
+	len = 2;
+	b = a;
+	while (b /= 16)
+		len++;
+	if (!(ret = (char*)malloc(sizeof(char) * len)))
+		return (0);
+	ret[--len] = '\0';
+	while (len--)
+	{
+		if ((a % 16) < 10)
+			ret[len] = (a % 16) + '0';
+		else
+			ret[len] = (a % 16) - 10 + 'a';
+		a = a / 16;
+	}
+	return ((char*)ret);
+}
+
 char	*ft_itohex2(int	a)//convierte un int en una cadena de ints en base 16
 {
 	int		b;
@@ -140,7 +165,7 @@ char	*ft_itohex2(int	a)//convierte un int en una cadena de ints en base 16
 	return ((char*)ret);
 }
 
-void ft_hexami(const char *moha, t_printf *pack)//falta egstion de unsigned char
+void 	ft_hexami(const char *moha, t_printf *pack)//falta egstion de unsigned char
 {
 	int	buf;
 	int		a;
@@ -156,7 +181,7 @@ void ft_hexami(const char *moha, t_printf *pack)//falta egstion de unsigned char
 	pack->cont++;
 }
 
-void ft_hexama(const char *moha, t_printf *pack)//falta egstion de unsigned char
+void 	ft_hexama(const char *moha, t_printf *pack)//falta egstion de unsigned char
 {
 	int	buf;
 	int		a;
@@ -231,7 +256,25 @@ void	ft_ischar(const char *moha, t_printf *pack)
 	char	buf;
 
 	buf = va_arg(pack->arg, int);
-	write (1, &buf, 1);
+	write(1, &buf, 1);
+	pack->cont++;
+}
+
+void	ft_ispointer(const char *moha, t_printf *pack)
+{
+	unsigned long int	buf;
+	int					a;
+
+	a = -1;
+	buf = va_arg(pack->arg, unsigned long int);
+	pack->s = ft_itohex3(buf);
+	write(1, "0", 1);
+	write(1, "x", 1);
+	while (pack->s[++a])
+	{
+		write(1, &pack->s[a], 1);
+		pack->size++;
+	}
 	pack->cont++;
 }
 
@@ -241,10 +284,10 @@ void	ft_casoslet(const char *moha, t_printf *pack)
 		ft_ischar(moha, pack);
 	if(moha[pack->cont] == 's')//para strings
 		ft_isstring(moha, pack);
-	/*if(moha[pack->cont] == 'p')//para punteros
+	if(moha[pack->cont] == 'p')//para punteros
 		ft_ispointer(moha, pack);
 	if(moha[pack->cont] == 'd')//para deimales
-		ft_isdecimal(moha, pack);*/
+		ft_isinter(moha, pack);
 	if(moha[pack->cont] == 'i')//para ints
 		ft_isinter(moha, pack);
 	if(moha[pack->cont] == 'u')//para unsigner ints
@@ -275,7 +318,7 @@ void	ft_casosnum(const char *moha, t_printf *pack)
 
 }
 
-int		escriberaw(const char	*moha, t_printf *pack)
+int		escriberaw(const char *moha, t_printf *pack)
 {
 	while (moha[pack->cont])
 	{
@@ -283,14 +326,14 @@ int		escriberaw(const char	*moha, t_printf *pack)
 			pack->cont += write(1, &moha[pack->cont], 1);
 		else
 		{
-		pack->cont++;
-		if (ft_isalpha(moha[pack->cont]) == 1)
-			ft_casoslet(moha, pack);
-		else
-			ft_casosnum(moha, pack);//comprobar que no sea nulo, o porcentaje
+			pack->cont++;
+			if (ft_isalpha(moha[pack->cont]) == 1)
+				ft_casoslet(moha, pack);
+			else
+				ft_casosnum(moha, pack);//comprobar que no sea nulo, o porcentaje
 		}
 	}
-	return(pack->cont);
+	return (pack->cont);
 }
 
 int		ft_printf(const char *moha, ...)
@@ -323,11 +366,11 @@ int		main(void)
 	e = "esto es e";
 	f = 'f';
 	g = 'g';
-	a1= 1;
+	a1 = 1;
 	a2 = 22;
 	a3 = -333;
 	a4 = -4444;
-	a5 = 4294967295;
+	a5 = 56644;
 	au1 = 0;
 	au2 = -22;
 	au3 = 4294967295;
@@ -343,6 +386,7 @@ int		main(void)
 	printf("PRI esto es 30000 en hexadecimal en Mayuscula: %X\nPRI esto es FAFA en hexadecimal en Mayuscula: %X\nPRI esto es 15 en hexadecimal en Mayuscula: %X\n", hex1, hex2, hex3);
 	ft_printf("esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
 	printf("PRI esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
-	printf("Esto es una prueba con el printf: ->%4i<-\n", a1);
+	printf("PRIEsto es una prueba de tipo p con el printf: ->%p<-\n", b);
+	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);
 	return (0);
 }
