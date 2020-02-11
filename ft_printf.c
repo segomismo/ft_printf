@@ -6,13 +6,20 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/10 17:04:58 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/02/11 13:15:16 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
 #include "libft/libft.h"
+
+int	ft_isdigit(int c)
+{
+	if (c < '0' || c > '9')
+		return (0);
+	return (1);
+}
 
 void	isnegative(int *n, int *negative)
 {
@@ -275,15 +282,32 @@ void	ft_ispointer(const char *moha, t_printf *pack)
 		write(1, &pack->s[a], 1);
 		pack->size++;
 	}
+	free(pack->s);
 	pack->cont++;
+}
+
+void	ft_preischar(const char *moha, t_printf *pack)
+{
+	if (pack->minus == 1)
+	{
+		ft_ischar(moha, pack);
+		while (--pack->ancho > 0)
+			write(1, " ", 1);
+	}
+	else
+	{
+		while (--pack->ancho > 0)
+			write(1, " ", 1);
+		ft_ischar(moha, pack);
+	}
 }
 
 void	ft_casoslet(const char *moha, t_printf *pack)
 {
 	if(moha[pack->cont] == 'c')//para chars
-		ft_ischar(moha, pack);
+		ft_preischar(moha, pack);
 	if(moha[pack->cont] == 's')//para strings
-		ft_isstring(moha, pack);
+		ft_preisstr(moha, pack);
 	if(moha[pack->cont] == 'p')//para punteros
 		ft_ispointer(moha, pack);
 	if(moha[pack->cont] == 'd')//para deimales
@@ -298,24 +322,38 @@ void	ft_casoslet(const char *moha, t_printf *pack)
 		ft_hexama(moha, pack);
 }
 
+void	ft_init(t_printf *pack)
+{
+	pack->minus = 0;
+	pack->zero = 0;
+	pack->ast = 0;
+	pack->punto = 0;
+	pack->ancho = 0;
+	pack->preci = 0;
+}
+
 void	ft_casosnum(const char *moha, t_printf *pack)
 {
-	while(ft_isalpha(moha[pack->cont++] != 1))
+	ft_init(pack);
+	if (moha[pack->cont] == '0' && pack->cont++ && pack->rest--)
+		pack->zero = 1;
+	if (moha[pack->cont] == '-' && pack->cont++ && pack->rest--)
+		pack->minus = 1;
+	if (moha[pack->cont] == '*' && pack->cont++ && pack->rest--)
+		pack->ast = 1;
+	while (ft_isdigit(moha[pack->cont]) == 1)
 	{
-		if (moha[pack->cont] == '-')
-			pack->minus = 1;
-		if (moha[pack->cont] == '0')
-			pack->zero = 1;
-		/*if (moha[pack->cont] == '.')
-			pack->point = 1;
-		if (moha[pack->cont] == '*')
-			pack->ast = 1;*/
+		pack->ancho += ((int)moha[pack->cont++] - 48);
+		pack->rest--;
+	}
+	if (moha[pack->cont] == '.' && pack->cont++ && pack->rest--)
+		pack->punto = 1;
+	while (ft_isdigit(moha[pack->cont]) == 1)
+	{
+		pack->preci += ((int)(moha[pack->cont++]) - 48);
+		pack->rest--;
 	}
 	ft_casoslet(moha, pack);
-
-
-
-
 }
 
 int		escriberaw(const char *moha, t_printf *pack)
@@ -378,15 +416,15 @@ int		main(void)
 	hex2 = 0xFAFA;
 	hex3 = 15;
 	hex4 = 64;
-	ft_printf("esto es lo que vale a(char)->%c\nesto es lo que vale b(string)->%s\nesto es lo que vale c(string)->%s\nesto es lo que vale d(string)->%s\nesto es lo que vale e(string)->%s\nesto es lo que vale f(char)->%c\nesto es lo que vale g(char)->%c\nesto es lo que vale un int de 1 cifras->%i\nesto es lo que vale un int de 2 cifras->%i\nesto es lo que vale un int de 3 cifras->%i\nesto es lo que vale un int de 4 cifras->%i\nesto es lo que vale un int de 5 cifras->%i\nesto es lo que vale un unsigned int de 1 cifras->%u\nesto es lo que vale un unsigned int de 2 cifras->%u\nesto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
-	printf("PRI esto es lo que vale a(char)->%c\nPRI esto es lo que vale b(string)->%s\nPRI esto es lo que vale c(string)->%s\nPRI esto es lo que vale d(string)->%s\nPRI esto es lo que vale e(string)->%s\nPRI esto es lo que vale f(char)->%c\nPRI esto es lo que vale g(char)->%c\nPRI esto es lo que vale un int de 1 cifras->%i\nPRI esto es lo que vale un int de 2 cifras->%i\nPRI esto es lo que vale un int de 3 cifras->%i\nPRI esto es lo que vale un int de 4 cifras->%i\nPRI esto es lo que vale un int de 5 cifras->%i\nPRI esto es lo que vale un unsigned int de 1 cifras->%u\nPRI pri esto es lo que vale un unsigned int de 2 cifras->%u\nPRI esto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
-	ft_printf("esto es 30000 en hexadecimal en minuscula: %x\nesto es FAFA en hexadecimal en minuscula: %x\nesto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
+	ft_printf("esto es lo que vale a(char)->%-5c<-\nesto es lo que vale b(string)->%s\nesto es lo que vale c(string)->%s\nesto es lo que vale d(string)->%s\nesto es lo que vale e(string)->%s\nesto es lo que vale f(char)->%c\nesto es lo que vale g(char)->%c\nesto es lo que vale un int de 1 cifras->%i\nesto es lo que vale un int de 2 cifras->%i\nesto es lo que vale un int de 3 cifras->%i\nesto es lo que vale un int de 4 cifras->%i\nesto es lo que vale un int de 5 cifras->%i\nesto es lo que vale un unsigned int de 1 cifras->%u\nesto es lo que vale un unsigned int de 2 cifras->%u\nesto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
+	printf("PRI esto es lo que vale a(char)->%-5c<-\nPRI esto es lo que vale b(string)->%s\nPRI esto es lo que vale c(string)->%s\nPRI esto es lo que vale d(string)->%s\nPRI esto es lo que vale e(string)->%s\nPRI esto es lo que vale f(char)->%c\nPRI esto es lo que vale g(char)->%c\nPRI esto es lo que vale un int de 1 cifras->%i\nPRI esto es lo que vale un int de 2 cifras->%i\nPRI esto es lo que vale un int de 3 cifras->%i\nPRI esto es lo que vale un int de 4 cifras->%i\nPRI esto es lo que vale un int de 5 cifras->%i\nPRI esto es lo que vale un unsigned int de 1 cifras->%u\nPRI pri esto es lo que vale un unsigned int de 2 cifras->%u\nPRI esto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
+	/*ft_printf("esto es 30000 en hexadecimal en minuscula: %x\nesto es FAFA en hexadecimal en minuscula: %x\nesto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
 	printf("PRI esto es 30000 en hexadecimal en minuscula: %x\nPRI esto es FAFA en hexadecimal en minuscula: %x\nPRI esto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
 	ft_printf("esto es 30000 en hexadecimal en Mayuscula: %X\nesto es FAFA en hexadecimal en Mayuscula: %X\nesto es 15 en hexadecimal en Mayuscula: %X\n", hex1, hex2, hex3);
 	printf("PRI esto es 30000 en hexadecimal en Mayuscula: %X\nPRI esto es FAFA en hexadecimal en Mayuscula: %X\nPRI esto es 15 en hexadecimal en Mayuscula: %X\n", hex1, hex2, hex3);
 	ft_printf("esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
 	printf("PRI esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
 	printf("PRIEsto es una prueba de tipo p con el printf: ->%p<-\n", b);
-	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);
+	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);*/
 	return (0);
 }
