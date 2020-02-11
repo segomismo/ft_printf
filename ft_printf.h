@@ -25,7 +25,7 @@ typedef	struct t_printf {
 	int		size;//cuenta la cantidad de letras que ha impreso, el size total se puede hacer como cont+size.sieze solo lo cuento cuando imprimo mas de un caracter en los argumentos
 	int		cont;//sirve para la posicion en la que esta
 	int		rest;//sirve para restar los avances que no cuentan como impresion
-	char	*s;//un buffer para imprimir strings
+	char	*s;//lsun buffer para imprimir strings
 	int		minus;
 	int		zero;
 	int		ast;
