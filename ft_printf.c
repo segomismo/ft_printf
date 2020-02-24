@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/11 16:56:33 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:07:48 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,7 @@ void	ft_casosnum(const char *format, t_printf *pack)
 		pack->ast = 1;*/
 	while (ft_isdigit(format[pack->cont]) == 1)
 	{
-		pack->ancho += pack->ancho * 10 + ((int)format[pack->cont++] - 48);
+		pack->ancho = pack->ancho * 10 + (format[pack->cont++] - 48);
 		pack->rest--;
 	}
 	if (format[pack->cont] == '.' && pack->cont++ && pack->rest--)
@@ -386,16 +386,19 @@ int		ft_printf(const char *format, ...)
 	pack->size = 0;
 	va_start(pack->arg, format);
 	fin = escriberaw(format, pack);
-	return (pack->cont);
+	pack->total = (pack->cont + pack->size - pack->rest);
+	printf("Este es el valor del retorno de ft_printf: %i", pack->total);
+	return (pack->cont + pack->size - pack->rest);
 }
 
-/*int		main(void)
+int		main(void)
 {
 	char	a, *b, *c, *d, *e, f, g;
 	int		a1, a2, a3, a4, a5;
 	unsigned int	au1, au2, au3;
 	int				hex1, hex2, hex3;
 	unsigned char	hex4;
+	int				total;
 
 	a = 'a';
 	b = "esto es b";
@@ -416,7 +419,7 @@ int		ft_printf(const char *format, ...)
 	hex2 = 0xFAFA;
 	hex3 = 15;
 	hex4 = 64;
-	ft_printf("esto es lo que vale a(char)->%-111c<-\nesto es lo que vale b(string)->%s\nesto es lo que vale c(string)->%s\nesto es lo que vale d(string)->%s\nesto es lo que vale e(string)->%s\nesto es lo que vale f(char)->%c\nesto es lo que vale g(char)->%c\nesto es lo que vale un int de 1 cifras->%i\nesto es lo que vale un int de 2 cifras->%i\nesto es lo que vale un int de 3 cifras->%i\nesto es lo que vale un int de 4 cifras->%i\nesto es lo que vale un int de 5 cifras->%i\nesto es lo que vale un unsigned int de 1 cifras->%u\nesto es lo que vale un unsigned int de 2 cifras->%u\nesto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
+	/*ft_printf("esto es lo que vale a(char)->%-111c<-\nesto es lo que vale b(string)->%s\nesto es lo que vale c(string)->%s\nesto es lo que vale d(string)->%s\nesto es lo que vale e(string)->%s\nesto es lo que vale f(char)->%c\nesto es lo que vale g(char)->%c\nesto es lo que vale un int de 1 cifras->%i\nesto es lo que vale un int de 2 cifras->%i\nesto es lo que vale un int de 3 cifras->%i\nesto es lo que vale un int de 4 cifras->%i\nesto es lo que vale un int de 5 cifras->%i\nesto es lo que vale un unsigned int de 1 cifras->%u\nesto es lo que vale un unsigned int de 2 cifras->%u\nesto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
 	printf("PRI esto es lo que vale a(char)->%-111c<-\nPRI esto es lo que vale b(string)->%s\nPRI esto es lo que vale c(string)->%s\nPRI esto es lo que vale d(string)->%s\nPRI esto es lo que vale e(string)->%s\nPRI esto es lo que vale f(char)->%c\nPRI esto es lo que vale g(char)->%c\nPRI esto es lo que vale un int de 1 cifras->%i\nPRI esto es lo que vale un int de 2 cifras->%i\nPRI esto es lo que vale un int de 3 cifras->%i\nPRI esto es lo que vale un int de 4 cifras->%i\nPRI esto es lo que vale un int de 5 cifras->%i\nPRI esto es lo que vale un unsigned int de 1 cifras->%u\nPRI pri esto es lo que vale un unsigned int de 2 cifras->%u\nPRI esto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
 	ft_printf("esto es 30000 en hexadecimal en minuscula: %x\nesto es FAFA en hexadecimal en minuscula: %x\nesto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
 	printf("PRI esto es 30000 en hexadecimal en minuscula: %x\nPRI esto es FAFA en hexadecimal en minuscula: %x\nPRI esto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
@@ -425,6 +428,9 @@ int		ft_printf(const char *format, ...)
 	ft_printf("esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
 	printf("PRI esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
 	printf("PRIEsto es una prueba de tipo p con el printf: ->%p<-\n", b);
-	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);
+	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);*/
+	total = printf("Este es el printfnormal: ->%-111c<-\n", a);
+	printf("Este es el valor del retorno de printf: %i\n", total);
+	ft_printf("Este es el ft_printf: ->%-111c<-\n", a);
 	return (0);
-}*/
+}
