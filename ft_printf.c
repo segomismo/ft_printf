@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/25 17:02:47 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/02/27 17:08:06 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,43 +106,110 @@ void	ft_isinterput(t_printf *pack, int buf)
 	pack->cont++;
 }
 
-void	ft_isinter(t_printf *pack, int buf)
+void	ft_isinterminus(t_printf *pack, int buf)
 {
-	if (pack->minus == 1)
+	pack->ancho -= pack->len - 1;
+	if (pack->menos == 1)
 	{
-		pack->ancho -= pack->len - 1;
-		ft_isinterput(pack, buf);
-		while (--pack->ancho > 0)
-		{
-			write(1, " ", 1);
-			pack->retorno++;
-		}
+		write(1, "-", 1);
+		pack->retorno++;
+		pack->ancho--;
 	}
-	else if (pack->zero == 1)
+	ft_isinterput(pack, buf);
+	while (pack->len < pack->preci)
 	{
-		while (--pack->ancho > 0)
-		{
-			write(1, "0", 1);
-			pack->retorno++;
-		}
+		write(1, "0", 1);
+		pack->retorno++;
+		pack->ancho--;
+		pack->preci--;
 	}
-	else
+	while (--pack->ancho > 0)
 	{
-		pack->ancho -= pack->len - 1;
-		while (--pack->ancho > 0)
-		{
-			write(1, " ", 1);
-			pack->retorno++;
-		}
-		ft_isinterput(pack, buf);
+		write(1, " ", 1);
+		pack->retorno++;
 	}
 }
 
-void ft_preisinter(t_printf *pack)
+void	ft_isinterzero(t_printf *pack, int buf)
+{
+	if (pack->menos == 1)
+	{
+		write(1, "-", 1);
+		pack->retorno++;
+		pack->ancho--;
+	}
+	while (((pack->ancho--) - pack->len) > 0)
+	{
+		write(1, "0", 1);
+		pack->retorno++;
+	}
+	ft_isinterput(pack, buf);
+}
+
+void	ft_isintersino(t_printf *pack, int buf)
+{
+	pack->ancho -= pack->len - 1;
+	while (--pack->ancho > 0)
+	{
+		write(1, " ", 1);
+		pack->retorno++;
+	}
+	if (pack->menos == 1)
+	{
+		write(1, "-", 1);
+		pack->retorno++;
+	}
+	ft_isinterput(pack, buf);
+}
+
+void	ft_isinterpreci(t_printf *pack, int buf)
+{
+	while ((--pack->ancho - pack->preci - pack->len) > 0)
+	{
+		write(1, " ", 1);
+		pack->retorno++;
+	}
+	if (pack->menos == 1)
+	{
+		write(1, "-", 1);
+		pack->retorno++;
+		pack->ancho--;
+	}
+	while (pack->len < pack->preci)
+	{
+		write(1, "0", 1);
+		pack->retorno++;
+		pack->ancho--;
+		pack->preci--;
+	}
+	ft_isinterput(pack, buf);
+}
+
+void	ft_isinter(t_printf *pack, int buf)
+{
+	if (pack->minus == 1)
+		ft_isinterminus(pack, buf);
+	else
+	{
+		if (pack->preci > 0)
+			ft_isinterpreci(pack, buf);
+		else if (pack->zero == 1)
+			ft_isinterzero(pack, buf);
+		else
+			ft_isintersino(pack, buf);
+	}
+}
+
+void	ft_preisinter(t_printf *pack)
 {
 	int	buf;
 
 	buf = va_arg(pack->arg, int);
+	if ((pack->zero == 1 || pack->preci > 0) && buf < 0)
+	{
+		pack->menos = 1;
+		buf = buf * (-1);
+	}
 	pack->s = ft_itoa(buf);
 	buf = -1;
 	pack->len = ft_strlen(pack->s);
@@ -185,19 +252,19 @@ void	ft_casoslet(const char *format, t_printf *pack)
 {
 	if (format[pack->cont] == 'c')
 		ft_preischar(pack);
-	if (format[pack->cont] == 's')//para strings
+	if (format[pack->cont] == 's')
 		ft_isstring(pack);
-	if (format[pack->cont] == 'p')//para punteros
+	if (format[pack->cont] == 'p')
 		ft_ispointer(pack);
 	if (format[pack->cont] == 'd')//para deimales
 		ft_preisinter(pack);
 	if (format[pack->cont] == 'i')
 		ft_preisinter(pack);
-	if (format[pack->cont] == 'u')//para unsigner ints
+	if (format[pack->cont] == 'u')//para unsigner ints+
 		ft_isunint(pack);
-	if (format[pack->cont] == 'x')//para hexadecimales con las letras en minuscula
+	if (format[pack->cont] == 'x')
 		ft_hexami(pack);
-	if (format[pack->cont] == 'X')//para hexadecimales con las letras en mayuscula
+	if (format[pack->cont] == 'X')
 		ft_hexama(pack);
 }
 
@@ -210,6 +277,7 @@ void	ft_init(t_printf *pack)
 	pack->ancho = 0;
 	pack->preci = 0;
 	pack->len = 0;
+	pack->menos = 0;
 }
 
 void	ft_casosnum(const char *format, t_printf *pack)

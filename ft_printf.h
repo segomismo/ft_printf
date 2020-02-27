@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/25 16:31:38 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:45:38 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef	struct t_printf {
 	int		ancho;
 	int		preci;
 	int		len;
+	int		menos;
 }t_printf;
 
 int		ft_isdigit(int c);
