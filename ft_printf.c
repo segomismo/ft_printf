@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/27 17:08:06 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/02 12:46:40 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,177 +77,6 @@ void	ft_isstring(t_printf *pack)
 	pack->cont++;
 }
 
-void	ft_ispointer(t_printf *pack)
-{
-	unsigned long int	buf;
-	int					a;
-
-	a = -1;
-	buf = va_arg(pack->arg, unsigned long int);
-	pack->s = ft_itohex3(buf);
-	write(1, "0", 1);
-	write(1, "x", 1);
-	while (pack->s[++a])
-	{
-		write(1, &pack->s[a], 1);
-		pack->retorno++;
-	}
-	free(pack->s);
-	pack->cont++;
-}
-
-void	ft_isinterput(t_printf *pack, int buf)
-{
-	while (pack->s[++buf])
-	{
-		write(1, &pack->s[buf], 1);
-		pack->retorno++;
-	}
-	pack->cont++;
-}
-
-void	ft_isinterminus(t_printf *pack, int buf)
-{
-	pack->ancho -= pack->len - 1;
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-		pack->ancho--;
-	}
-	ft_isinterput(pack, buf);
-	while (pack->len < pack->preci)
-	{
-		write(1, "0", 1);
-		pack->retorno++;
-		pack->ancho--;
-		pack->preci--;
-	}
-	while (--pack->ancho > 0)
-	{
-		write(1, " ", 1);
-		pack->retorno++;
-	}
-}
-
-void	ft_isinterzero(t_printf *pack, int buf)
-{
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-		pack->ancho--;
-	}
-	while (((pack->ancho--) - pack->len) > 0)
-	{
-		write(1, "0", 1);
-		pack->retorno++;
-	}
-	ft_isinterput(pack, buf);
-}
-
-void	ft_isintersino(t_printf *pack, int buf)
-{
-	pack->ancho -= pack->len - 1;
-	while (--pack->ancho > 0)
-	{
-		write(1, " ", 1);
-		pack->retorno++;
-	}
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-	}
-	ft_isinterput(pack, buf);
-}
-
-void	ft_isinterpreci(t_printf *pack, int buf)
-{
-	while ((--pack->ancho - pack->preci - pack->len) > 0)
-	{
-		write(1, " ", 1);
-		pack->retorno++;
-	}
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-		pack->ancho--;
-	}
-	while (pack->len < pack->preci)
-	{
-		write(1, "0", 1);
-		pack->retorno++;
-		pack->ancho--;
-		pack->preci--;
-	}
-	ft_isinterput(pack, buf);
-}
-
-void	ft_isinter(t_printf *pack, int buf)
-{
-	if (pack->minus == 1)
-		ft_isinterminus(pack, buf);
-	else
-	{
-		if (pack->preci > 0)
-			ft_isinterpreci(pack, buf);
-		else if (pack->zero == 1)
-			ft_isinterzero(pack, buf);
-		else
-			ft_isintersino(pack, buf);
-	}
-}
-
-void	ft_preisinter(t_printf *pack)
-{
-	int	buf;
-
-	buf = va_arg(pack->arg, int);
-	if ((pack->zero == 1 || pack->preci > 0) && buf < 0)
-	{
-		pack->menos = 1;
-		buf = buf * (-1);
-	}
-	pack->s = ft_itoa(buf);
-	buf = -1;
-	pack->len = ft_strlen(pack->s);
-	ft_isinter(pack, buf);
-}
-
-void	ft_ischar(t_printf *pack)
-{
-	char	buf;
-
-	buf = va_arg(pack->arg, int);
-	write(1, &buf, 1);
-	pack->retorno++;
-	pack->cont++;
-}
-
-void	ft_preischar(t_printf *pack)
-{
-	if (pack->minus == 1)
-	{
-		ft_ischar(pack);
-		while (--pack->ancho > 0)
-		{
-			write(1, " ", 1);
-			pack->retorno++;
-		}
-	}
-	else
-	{
-		while (--pack->ancho > 0)
-		{
-			write(1, " ", 1);
-			pack->retorno++;
-		}
-		ft_ischar(pack);
-	}
-}
-
 void	ft_casoslet(const char *format, t_printf *pack)
 {
 	if (format[pack->cont] == 'c')
@@ -255,7 +84,7 @@ void	ft_casoslet(const char *format, t_printf *pack)
 	if (format[pack->cont] == 's')
 		ft_isstring(pack);
 	if (format[pack->cont] == 'p')
-		ft_ispointer(pack);
+		ft_preispointer(pack);
 	if (format[pack->cont] == 'd')//para deimales
 		ft_preisinter(pack);
 	if (format[pack->cont] == 'i')

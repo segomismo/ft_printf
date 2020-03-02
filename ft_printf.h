@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/02/27 16:45:38 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/02 16:40:27 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ char	*ft_itohex2(int	a);
 char	*ft_itohex3(unsigned long int	a);
 int		ft_isalpha(int a);
 size_t	ft_strlen(const char *s);
+void	ft_ischar(t_printf *pack);
+void	ft_preischar(t_printf *pack);
+void	ft_preisinter(t_printf *pack);
+void	ft_isinter(t_printf *pack, int buf);
+void	ft_isinterpreci(t_printf *pack, int buf);
+void	ft_isintersino(t_printf *pack, int buf);
+void	ft_isinterzero(t_printf *pack, int buf);
+void	ft_isinterminus(t_printf *pack, int buf);
+void	ft_isinterput(t_printf *pack, int buf);
+void	ft_preispointer(t_printf *pack);
+void	ft_ispointer(t_printf *pack, int buf);
+void	ft_ispointerpreci(t_printf *pack, int buf);
+void	ft_ispointerput(t_printf *pack, int buf);
+void	ft_ispointerminus(t_printf *pack, int buf);
+void	ft_ispointerzero(t_printf *pack, int buf);
+void	ft_ispointersino(t_printf *pack, int buf);
 #endif
 /*
 hacer free's de los mallocs de la funcion principal, a la que igualo el malloc de la secundaria
