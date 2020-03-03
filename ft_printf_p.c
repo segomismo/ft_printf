@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:28:51 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/02 17:07:32 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:05:33 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	ft_ispointerput(t_printf *pack, int buf)
 	pack->retorno += 2;
 	write(1, "0", 1);
 	write(1, "x", 1);
+	while (pack->len < pack->preci)
+	{
+		write(1, "0", 1);
+		pack->retorno++;
+		pack->ancho--;
+		pack->preci--;
+	}
 	while (pack->s[++buf])
 	{
 		write(1, &pack->s[buf], 1);
@@ -27,7 +34,9 @@ void	ft_ispointerput(t_printf *pack, int buf)
 
 void	ft_ispointerminus(t_printf *pack, int buf)
 {
-	pack->ancho -= 11;
+	pack->ancho -= pack->len;
+	if (pack->punto == 1)
+		pack->ancho--;
 	while (11 < pack->preci)
 	{
 		write(1, "0", 1);
@@ -45,7 +54,7 @@ void	ft_ispointerminus(t_printf *pack, int buf)
 
 void	ft_ispointerzero(t_printf *pack, int buf)
 {
-	while (((pack->ancho--) - 11) > 0)
+	while (((pack->ancho--) - pack->len) > 0)
 	{
 		write(1, "0", 1);
 		pack->retorno++;
@@ -56,6 +65,8 @@ void	ft_ispointerzero(t_printf *pack, int buf)
 void	ft_ispointersino(t_printf *pack, int buf)
 {
 	pack->ancho -= pack->len;
+	if (pack->punto == 1)
+		pack->ancho--;
 	while (--pack->ancho > 0)
 	{
 		write(1, " ", 1);
@@ -66,6 +77,10 @@ void	ft_ispointersino(t_printf *pack, int buf)
 
 void	ft_ispointerpreci(t_printf *pack, int buf)
 {
+	if (pack->punto == 1)
+	{
+		pack->ancho -= 3;
+	}
 	while ((pack->ancho - pack->preci > 0))
 	{
 		write(1, " ", 1);

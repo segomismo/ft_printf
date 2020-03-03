@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_c.c ft_printf_i.c ft_printf_p.c
+SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_c.c ft_printf_i.c ft_printf_p.c ft_printf_u.c ft_printf_s.c
 
 OBJS	=	${SRCS:.c=.o}
 
