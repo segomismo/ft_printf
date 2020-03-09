@@ -6,28 +6,12 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/03 15:43:49 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:41:12 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
-
-void 	ft_hexami(t_printf *pack)//falta egstion de unsigned char
-{
-	int	buf;
-	int		a;
-
-	a = -1;
-	buf = va_arg(pack->arg, int);
-	pack->s = ft_itohex(buf);
-	while (pack->s[++a])
-	{
-		write(1, &pack->s[a], 1);
-		pack->retorno++;
-	}
-	pack->cont++;
-}
 
 void 	ft_hexama(t_printf *pack)//falta egstion de unsigned char
 {
@@ -60,7 +44,7 @@ void	ft_casoslet(const char *format, t_printf *pack)
 	if (format[pack->cont] == 'u')
 		ft_preisunint(pack);
 	if (format[pack->cont] == 'x')
-		ft_hexami(pack);
+		ft_prehexami(pack);
 	if (format[pack->cont] == 'X')
 		ft_hexama(pack);
 }
@@ -121,6 +105,7 @@ int		ft_printf(const char *format, ...)
 	t_printf	*pack;
 	//void		*buf;//Este void sirve para meter los argumentos recibidos mientras los conviertes y los imprimes, al ser void, se puede castear facilente
 	int			fin;
+	int			retorno;
 
 	if (!(pack = malloc(sizeof(t_printf))))
 		return (-1);
@@ -128,10 +113,12 @@ int		ft_printf(const char *format, ...)
 	pack->retorno = 0;
 	va_start(pack->arg, format);
 	fin = escriberaw(format, pack);
-	return (pack->retorno);
+	retorno = pack->retorno;
+	free(pack);
+	return (retorno);
 }
-/*
-int		main(void)
+
+/*int		main(void)
 {
 	char	a, *b, *c, *d, *e, f, g;
 	int		a1, a2, a3, a4, a5;
@@ -172,6 +159,6 @@ int		main(void)
 	total = printf("Este es el printfnormal: ->%-111c<-\n", a);
 	printf("Este es el valor del retorno de printf   : %i\n", total);
 	ft_printf("Este es el ft_printf   : ->%-111c<-\n", a);
+	system("leaks a.out");
 	return (0);
-}
-*/
+}*/

@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_printf_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 15:42:24 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:31:50 by rufranci         ###   ########.fr       */
+/*   Created: 2020/03/09 16:39:01 by rufranci          #+#    #+#             */
+/*   Updated: 2020/03/09 17:03:42 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_isstringput(t_printf *pack, int buf)
+void    ft_hexamiput(t_printf *pack, int buf)
 {
-	if (pack->punto == 1)
+	while (pack->s[++buf])
 	{
-		while (pack->s[++buf] && pack->preci != 0)
-		{
-			pack->preci--;
-			write(1, &pack->s[buf], 1);
-			pack->retorno++;
-		}
-	}
-	else
-	{
-		while (pack->s[++buf])
-		{
-			write(1, &pack->s[buf], 1);
-			pack->retorno++;
-		}
+		write(1, &pack->s[buf], 1);
+		pack->retorno++;
 	}
 	pack->cont++;
 }
 
-void	ft_isstringminus(t_printf *pack, int buf)
+void	ft_hexamiminus(t_printf *pack, int buf)
 {
 	if (pack->preci != 0 && pack->preci < pack->len)
 		pack->ancho -= pack->preci - 1;
@@ -42,7 +30,7 @@ void	ft_isstringminus(t_printf *pack, int buf)
 		pack->ancho = pack->ancho + 1;
 	else
 		pack->ancho -= pack->len - 1;
-	ft_isstringput(pack, buf);
+	ft_hexamiput(pack, buf);
 	while (--pack->ancho > 0)
 	{
 		write(1, " ", 1);
@@ -50,17 +38,17 @@ void	ft_isstringminus(t_printf *pack, int buf)
 	}
 }
 
-void	ft_isstringzero(t_printf *pack, int buf)
+void	ft_hexamizero(t_printf *pack, int buf)
 {
 	while (((pack->ancho--) - pack->len) > 0)
 	{
 		write(1, "0", 1);
 		pack->retorno++;
 	}
-	ft_isstringput(pack, buf);
+	ft_hexamiput(pack, buf);
 }
 
-void	ft_isstringsino(t_printf *pack, int buf)
+void	ft_hexamisino(t_printf *pack, int buf)
 {
 	if (pack->preci != 0 && pack->preci < pack->len)
 		pack->ancho -= pack->preci;
@@ -73,47 +61,54 @@ void	ft_isstringsino(t_printf *pack, int buf)
 		write(1, " ", 1);
 		pack->retorno++;
 	}
-	ft_isstringput(pack, buf);
+	ft_hexamiput(pack, buf);
 }
 
-void	ft_isstringpreci(t_printf *pack, int buf)
+void	ft_hexamipreci(t_printf *pack, int buf)
 {
-	while (((pack->ancho - pack->preci) > 0) || (pack->ancho - pack->len > 0))
+	while (((pack->ancho - pack->preci) > 0) && (pack->ancho - pack->len > 0))
 	{
 		write(1, " ", 1);
 		pack->retorno++;
 		pack->ancho--;
 	}
-	ft_isstringput(pack, buf);
+	while (pack->len < pack->preci)
+	{
+		write(1, "0", 1);
+		pack->retorno++;
+		pack->preci--;
+	}
+	ft_hexamiput(pack, buf);
 }
 
-void	ft_isstring(t_printf *pack, int buf)
+void    ft_hexami(t_printf *pack, int buf)
 {
 	if (pack->minus == 1)
-		ft_isstringminus(pack, buf);
+		ft_hexamiminus(pack, buf);
 	else
 	{
 		if (pack->preci > 0)
-			ft_isstringpreci(pack, buf);
+			ft_hexamipreci(pack, buf);
 		else if (pack->zero == 1)
-			ft_isstringzero(pack, buf);
+			ft_hexamizero(pack, buf);
 		else
-			ft_isstringsino(pack, buf);
+			ft_hexamisino(pack, buf);
 	}
 }
 
-void	ft_preisstring(t_printf *pack)
-{
-	void	*buff;
-	int		buf;
 
-	buf = -1;
-	buff = va_arg(pack->arg, void *);
-	if (buff == NULL)
-		pack->s = "(null)";
-	else
-		pack->s = buff;
-	pack->len = ft_strlen(pack->s);
-	ft_isstring(pack, buf);
-	//liberar pack
+void    ft_prehexami(t_printf *pack)
+{
+	int	buf;
+
+	buf = va_arg(pack->arg, int);
+    if (buf == 0 && pack->punto > 0)
+        pack->s = " ";
+    else
+    {
+	pack->s = ft_itohex(buf);
+    buf = -1;
+    pack->len = ft_strlen(pack->s);
+    ft_hexami(pack, buf);
+    }
 }

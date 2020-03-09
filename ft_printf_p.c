@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:28:51 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/03 15:05:33 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:32:58 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_ispointerput(t_printf *pack, int buf)
 		write(1, &pack->s[buf], 1);
 		pack->retorno++;
 	}
+	free(pack->s);
 	pack->cont++;
 }
 

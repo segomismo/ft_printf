@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:25:47 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/02 16:06:54 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:37:10 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_isinterput(t_printf *pack, int buf)
 		write(1, &pack->s[buf], 1);
 		pack->retorno++;
 	}
+//	free(pack->s);
 	pack->cont++;
 }
 

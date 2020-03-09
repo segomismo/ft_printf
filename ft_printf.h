@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/03 15:43:58 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/09 16:40:57 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ void	ft_isunintzero(t_printf *pack, int buf);
 void	ft_isunintminus(t_printf *pack, int buf);
 void	ft_isunintput(t_printf *pack, int buf);
 void	ft_preisstring(t_printf *pack);
+void	ft_isstringput(t_printf *pack, int buf);
+void	ft_isstringminus(t_printf *pack, int buf);
+void	ft_isstringzero(t_printf *pack, int buf);
+void	ft_isstringsino(t_printf *pack, int buf);
+void	ft_isstringpreci(t_printf *pack, int buf);
+void	ft_isstring(t_printf *pack, int buf);
+void 	ft_prehexami(t_printf *pack);
 #endif
 /*
 hacer free's de los mallocs de la funcion principal, a la que igualo el malloc de la secundaria
