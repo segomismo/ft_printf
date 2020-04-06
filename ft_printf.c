@@ -6,47 +6,33 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:41:12 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:08:55 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_printf.h"
 
-void 	ft_hexama(t_printf *pack)//falta egstion de unsigned char
-{
-	int	buf;
-	int		a;
-
-	a = -1;
-	buf = va_arg(pack->arg, int);
-	pack->s = ft_itohex2(buf);
-	while (pack->s[++a])
-	{
-		write(1, &pack->s[a], 1);
-		pack->retorno++;
-	}
-	pack->cont++;
-}
-
 void	ft_casoslet(const char *format, t_printf *pack)
 {
 	if (format[pack->cont] == 'c')
 		ft_preischar(pack);
-	if (format[pack->cont] == 's')
+	else if (format[pack->cont] == 's')
 		ft_preisstring(pack);
-	if (format[pack->cont] == 'p')
+	else if (format[pack->cont] == 'p')
 		ft_preispointer(pack);
-	if (format[pack->cont] == 'd')
+	else if (format[pack->cont] == 'd')
 		ft_preisinter(pack);
-	if (format[pack->cont] == 'i')
+	else if (format[pack->cont] == 'i')
 		ft_preisinter(pack);
-	if (format[pack->cont] == 'u')
+	else if (format[pack->cont] == 'u')
 		ft_preisunint(pack);
-	if (format[pack->cont] == 'x')
+	else if (format[pack->cont] == 'x')
 		ft_prehexami(pack);
-	if (format[pack->cont] == 'X')
-		ft_hexama(pack);
+	else if (format[pack->cont] == 'X')
+		ft_prehexama(pack);
+	else if (format[pack->cont] == '%')
+		ft_preporcentaje(pack);
 }
 
 void	ft_init(t_printf *pack)

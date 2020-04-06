@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:40:57 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:58:50 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	isnegative(int *n, int *negative);
 char	*ft_itoa(int n);
 char	*ft_uitoa(unsigned int n);
 char	*ft_strdup(const char *s1);
-char	*ft_itohex(int	a);
-char	*ft_itohex2(int	a);
+char	*ft_itohex(unsigned int	a);
+char	*ft_itohex2(unsigned int	a);
 char	*ft_itohex3(unsigned long int	a);
 int		ft_isalpha(int a);
 size_t	ft_strlen(const char *s);
@@ -75,6 +75,20 @@ void	ft_isstringsino(t_printf *pack, int buf);
 void	ft_isstringpreci(t_printf *pack, int buf);
 void	ft_isstring(t_printf *pack, int buf);
 void 	ft_prehexami(t_printf *pack);
+void	ft_hexamaput(t_printf *pack, int buf);
+void	ft_hexamaminus(t_printf *pack, int buf);
+void	ft_hexamazero(t_printf *pack, int buf);
+void	ft_hexamasino(t_printf *pack, int buf);
+void	ft_hexamapreci(t_printf *pack, int buf);
+void	ft_hexama(t_printf *pack, int buf);
+void	ft_prehexama(t_printf *pack);
+void	ft_porcenput(t_printf *pack, int buf);
+void	ft_porcenminus(t_printf *pack, int buf);
+void	ft_porcenzero(t_printf *pack, int buf);
+void	ft_porcensino(t_printf *pack, int buf);
+void	ft_porcenpreci(t_printf *pack, int buf);
+void	ft_porcentaje(t_printf *pack, int buf);
+void	ft_preporcentaje(t_printf *pack);
 #endif
 /*
 hacer free's de los mallocs de la funcion principal, a la que igualo el malloc de la secundaria

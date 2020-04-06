@@ -6,13 +6,13 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 16:39:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 17:03:42 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:42:11 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void    ft_hexamiput(t_printf *pack, int buf)
+void	ft_hexamiput(t_printf *pack, int buf)
 {
 	while (pack->s[++buf])
 	{
@@ -24,12 +24,20 @@ void    ft_hexamiput(t_printf *pack, int buf)
 
 void	ft_hexamiminus(t_printf *pack, int buf)
 {
-	if (pack->preci != 0 && pack->preci < pack->len)
-		pack->ancho -= pack->preci - 1;
-	else if (pack->preci == 0 && pack->punto == 1)
-		pack->ancho = pack->ancho + 1;
-	else
-		pack->ancho -= pack->len - 1;
+	pack->ancho -= pack->len - 1;
+	if (pack->menos == 1)
+	{
+		write(1, "-", 1);
+		pack->retorno++;
+		pack->ancho--;
+	}
+	while (pack->len < pack->preci)
+	{
+		write(1, "0", 1);
+		pack->retorno++;
+		pack->ancho--;
+		pack->preci--;
+	}
 	ft_hexamiput(pack, buf);
 	while (--pack->ancho > 0)
 	{
@@ -81,13 +89,13 @@ void	ft_hexamipreci(t_printf *pack, int buf)
 	ft_hexamiput(pack, buf);
 }
 
-void    ft_hexami(t_printf *pack, int buf)
+void	ft_hexami(t_printf *pack, int buf)
 {
 	if (pack->minus == 1)
 		ft_hexamiminus(pack, buf);
 	else
 	{
-		if (pack->preci > 0)
+		if (pack->punto == 1)
 			ft_hexamipreci(pack, buf);
 		else if (pack->zero == 1)
 			ft_hexamizero(pack, buf);
@@ -97,18 +105,18 @@ void    ft_hexami(t_printf *pack, int buf)
 }
 
 
-void    ft_prehexami(t_printf *pack)
+void	ft_prehexami(t_printf *pack)
 {
 	int	buf;
 
 	buf = va_arg(pack->arg, int);
-    if (buf == 0 && pack->punto > 0)
-        pack->s = " ";
-    else
-    {
-	pack->s = ft_itohex(buf);
-    buf = -1;
-    pack->len = ft_strlen(pack->s);
-    ft_hexami(pack, buf);
-    }
+	if (buf == 0 && pack->punto > 0)
+		pack->s = " ";
+	else
+	{
+		pack->s = ft_itohex(buf);
+		buf = -1;
+		pack->len = ft_strlen(pack->s);
+	}
+	ft_hexami(pack, buf);
 }

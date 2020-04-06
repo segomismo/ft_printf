@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_i.c                                      :+:      :+:    :+:   */
+/*   ft_printf_x2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 12:25:47 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/10 16:35:41 by rufranci         ###   ########.fr       */
+/*   Created: 2020/03/10 12:48:58 by rufranci          #+#    #+#             */
+/*   Updated: 2020/03/10 12:56:28 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_isinterput(t_printf *pack, int buf)
+void	ft_hexamaput(t_printf *pack, int buf)
 {
 	while (pack->s[++buf])
 	{
@@ -22,7 +22,7 @@ void	ft_isinterput(t_printf *pack, int buf)
 	pack->cont++;
 }
 
-void	ft_isinterminus(t_printf *pack, int buf)
+void	ft_hexamaminus(t_printf *pack, int buf)
 {
 	pack->ancho -= pack->len - 1;
 	if (pack->menos == 1)
@@ -38,7 +38,7 @@ void	ft_isinterminus(t_printf *pack, int buf)
 		pack->ancho--;
 		pack->preci--;
 	}
-	ft_isinterput(pack, buf);
+	ft_hexamaput(pack, buf);
 	while (--pack->ancho > 0)
 	{
 		write(1, " ", 1);
@@ -46,78 +46,66 @@ void	ft_isinterminus(t_printf *pack, int buf)
 	}
 }
 
-void	ft_isinterzero(t_printf *pack, int buf)
+void	ft_hexamazero(t_printf *pack, int buf)
 {
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-		pack->ancho--;
-	}
 	while (((pack->ancho--) - pack->len) > 0)
 	{
 		write(1, "0", 1);
 		pack->retorno++;
 	}
-	ft_isinterput(pack, buf);
+	ft_hexamaput(pack, buf);
 }
 
-void	ft_isintersino(t_printf *pack, int buf)
+void	ft_hexamasino(t_printf *pack, int buf)
 {
-	pack->ancho -= pack->len - 1;
+	if (pack->preci != 0 && pack->preci < pack->len)
+		pack->ancho -= pack->preci;
+	else if (pack->preci == 0 && pack->punto == 1)
+		pack->ancho = pack->ancho + 1;
+	else
+		pack->ancho -= pack->len - 1;
 	while (--pack->ancho > 0)
 	{
 		write(1, " ", 1);
 		pack->retorno++;
 	}
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-	}
-	ft_isinterput(pack, buf);
+	ft_hexamaput(pack, buf);
 }
 
-void	ft_isinterpreci(t_printf *pack, int buf)
+void	ft_hexamapreci(t_printf *pack, int buf)
 {
-	if (pack->menos == 1)
-		pack->ancho--;
 	while (((pack->ancho - pack->preci) > 0) && (pack->ancho - pack->len > 0))
 	{
 		write(1, " ", 1);
 		pack->retorno++;
 		pack->ancho--;
 	}
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-	}
 	while (pack->len < pack->preci)
 	{
 		write(1, "0", 1);
 		pack->retorno++;
 		pack->preci--;
 	}
-	ft_isinterput(pack, buf);
+	ft_hexamaput(pack, buf);
 }
 
-void	ft_isinter(t_printf *pack, int buf)
+void	ft_hexama(t_printf *pack, int buf)
 {
 	if (pack->minus == 1)
-		ft_isinterminus(pack, buf);
+		ft_hexamaminus(pack, buf);
 	else
 	{
-		if (pack->preci > 0)
-			ft_isinterpreci(pack, buf);
+		if (pack->punto == 1)
+			ft_hexamapreci(pack, buf);
 		else if (pack->zero == 1)
-			ft_isinterzero(pack, buf);
+			ft_hexamazero(pack, buf);
 		else
-			ft_isintersino(pack, buf);
+			ft_hexamasino(pack, buf);
 	}
 }
 
-void	ft_preisinter(t_printf *pack)
+
+void	ft_prehexama(t_printf *pack)
 {
 	int	buf;
 
@@ -126,15 +114,9 @@ void	ft_preisinter(t_printf *pack)
 		pack->s = " ";
 	else
 	{
-		if ((pack->zero == 1 || pack->preci > 0) && buf < 0)
-		{
-			pack->menos = 1;
-			buf = buf * (-1);
-		}
-		pack->s = ft_itoa(buf);
+		pack->s = ft_itohex2(buf);
 		buf = -1;
 		pack->len = ft_strlen(pack->s);
 	}
-	ft_isinter(pack, buf);
-	//liberar pack
+	ft_hexama(pack, buf);
 }

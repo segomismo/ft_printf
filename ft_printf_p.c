@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:28:51 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:32:58 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/10 18:00:09 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_ispointerput(t_printf *pack, int buf)
 		write(1, &pack->s[buf], 1);
 		pack->retorno++;
 	}
-	free(pack->s);
 	pack->cont++;
 }
 
@@ -118,7 +117,7 @@ void	ft_preispointer(t_printf *pack)
 
 	buf = va_arg(pack->arg, unsigned long int);
 	if (buf == 0 && pack->punto > 0)
-		pack->s = " ";
+		pack->s = "";
 	else
 	{
 		pack->s = ft_itohex3(buf);
@@ -126,5 +125,4 @@ void	ft_preispointer(t_printf *pack)
 		pack->len = ft_strlen(pack->s) + 1;
 	}
 	ft_ispointer(pack, buf);
-	//liberar pack
 }

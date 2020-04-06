@@ -6,7 +6,7 @@
 /*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 12:31:06 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:32:01 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:46:25 by rufranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ char	*ft_strdup(const char *s1)
 	return (p);
 }
 
-char	*ft_itohex(int	a)//convierte un int en una cadena de ints en base 16
+char	*ft_itohex(unsigned int	a)
 {
-	int		b;
-	int		len;
-	char	*ret;
+	unsigned int		b;
+	int					len;
+	char				*ret;
 
 	len = 2;
 	b = a;
@@ -146,11 +146,11 @@ char	*ft_itohex3(unsigned long int	a)//convierte un int en una cadena de ints en
 	return ((char*)ret);
 }
 
-char	*ft_itohex2(int	a)//convierte un int en una cadena de ints en base 16
+char	*ft_itohex2(unsigned int	a)//convierte un int en una cadena de ints en base 16
 {
-	int		b;
-	int		len;
-	char	*ret;
+	unsigned int		b;
+	int					len;
+	char				*ret;
 
 	len = 2;
 	b = a;
