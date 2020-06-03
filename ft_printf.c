@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/10 17:08:55 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/03 19:21:44 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ void	ft_casosnum(const char *format, t_printf *pack)
 		pack->zero = 1;
 	if (format[pack->cont] == '-' && pack->cont++)
 		pack->minus = 1;
-	/*if (format[pack->cont] == '*' && pack->cont++ && pack->rest--)
-		pack->ast = 1;*/
+	if (format[pack->cont] == '*' && pack->cont++)
+		ft_asterisco(pack);
 	while (ft_isdigit(format[pack->cont]) == 1)
 		pack->ancho = pack->ancho * 10 + (format[pack->cont++] - 48);
 	if (format[pack->cont] == '.' && pack->cont++)
 		pack->punto = 1;
+	if (format[pack->cont] == '*' && pack->cont++)
+		ft_asterisco(pack);
 	while (ft_isdigit(format[pack->cont]) == 1)
 		pack->preci += pack->preci * 10 + ((int)(format[pack->cont++]) - 48);
 	ft_casoslet(format, pack);
@@ -89,7 +91,6 @@ int		escriberaw(const char *format, t_printf *pack)
 int		ft_printf(const char *format, ...)
 {
 	t_printf	*pack;
-	//void		*buf;//Este void sirve para meter los argumentos recibidos mientras los conviertes y los imprimes, al ser void, se puede castear facilente
 	int			fin;
 	int			retorno;
 
@@ -106,6 +107,16 @@ int		ft_printf(const char *format, ...)
 
 /*int		main(void)
 {
+	ft_printf("%.*s", -6, "hello\n");
+	printf("%.*s", -6, "hello\n");
+	ft_printf("%.*s", -9, "hello\n");
+	printf("%.*s", -9, "hello\n");
+	ft_printf("%.*s", -1, "hello\n");
+	printf("%.*s", -1, "hello\n");
+	ft_printf("%.*s", -3, "hello\n");
+	printf("%.*s", -3, "hello\n");
+}
+
 	char	a, *b, *c, *d, *e, f, g;
 	int		a1, a2, a3, a4, a5;
 	unsigned int	au1, au2, au3;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/10 16:58:50 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/02 19:16:36 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_porcensino(t_printf *pack, int buf);
 void	ft_porcenpreci(t_printf *pack, int buf);
 void	ft_porcentaje(t_printf *pack, int buf);
 void	ft_preporcentaje(t_printf *pack);
+void	ft_tuputamadre(t_printf *pack);
+void	ft_asterisco(t_printf *pack);
 #endif
 /*
 hacer free's de los mallocs de la funcion principal, a la que igualo el malloc de la secundaria

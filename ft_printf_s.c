@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_s.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:42:24 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:31:50 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/03 19:21:19 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,10 @@ void	ft_isstring(t_printf *pack, int buf)
 		ft_isstringminus(pack, buf);
 	else
 	{
-		if (pack->preci > 0)
+		if (pack->punto > 0)
+		{
 			ft_isstringpreci(pack, buf);
+		}
 		else if (pack->zero == 1)
 			ft_isstringzero(pack, buf);
 		else
@@ -115,5 +117,4 @@ void	ft_preisstring(t_printf *pack)
 		pack->s = buff;
 	pack->len = ft_strlen(pack->s);
 	ft_isstring(pack, buf);
-	//liberar pack
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_i.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:25:47 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/10 16:35:41 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/03 19:07:25 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	ft_preisinter(t_printf *pack)
 		pack->s = " ";
 	else
 	{
+		if(buf == -2147483648)
+			buf = buf * (-1);
 		if ((pack->zero == 1 || pack->preci > 0) && buf < 0)
 		{
 			pack->menos = 1;

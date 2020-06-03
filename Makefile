@@ -1,16 +1,16 @@
-	# **************************************************************************** #
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agianico <agianico@student.42.fr>          +#+  +:+       +#+         #
+#    By: ruben <ruben@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/07 15:36:50 by agianico          #+#    #+#              #
-#    Updated: 2020/02/05 12:33:30 by abarral-         ###   ########.fr        #
+#    Updated: 2020/06/03 12:28:45 by ruben            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_c.c ft_printf_i.c ft_printf_p.c ft_printf_u.c ft_printf_s.c ft_printf_x.c ft_printf_x2.c ft_printf_%.c
+SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_c.c ft_printf_i.c ft_printf_p.c ft_printf_u.c ft_printf_s.c ft_printf_x.c ft_printf_x2.c ft_printf_%.c ft_printf_as.c
 
 OBJS	=	${SRCS:.c=.o}
 

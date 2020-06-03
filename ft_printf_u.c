@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:09:29 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/09 16:34:03 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/03 19:35:16 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,4 @@ void	ft_preisunint(t_printf *pack)
 		pack->len = ft_strlen(pack->s);
 	}
 	ft_isunint(pack, buf);
-	//liberar pack
 }

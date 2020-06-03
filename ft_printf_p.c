@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_p.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufranci <rufranci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:28:51 by rufranci          #+#    #+#             */
-/*   Updated: 2020/03/10 18:00:09 by rufranci         ###   ########.fr       */
+/*   Updated: 2020/06/01 20:08:06 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,18 +111,33 @@ void	ft_ispointer(t_printf *pack, int buf)
 	}
 }
 
+void	ft_tuputamadre(t_printf *pack)
+{
+	while ((pack->ancho - 2) > 0)
+	{
+		write(1, " ", 1);
+		pack->retorno++;
+		pack->ancho--;
+	}
+	pack->retorno += 2;
+	write(1, "0", 1);
+	write(1, "x", 1);
+	pack->cont++;
+}
 void	ft_preispointer(t_printf *pack)
 {
 	unsigned long int	buf;
 
 	buf = va_arg(pack->arg, unsigned long int);
 	if (buf == 0 && pack->punto > 0)
-		pack->s = "";
+	{
+		ft_tuputamadre(pack);
+	}
 	else
 	{
 		pack->s = ft_itohex3(buf);
 		buf = -1;
 		pack->len = ft_strlen(pack->s) + 1;
+		ft_ispointer(pack, buf);
 	}
-	ft_ispointer(pack, buf);
 }
