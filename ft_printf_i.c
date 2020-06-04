@@ -6,45 +6,11 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:25:47 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/03 19:07:25 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/04 22:44:44 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_isinterput(t_printf *pack, int buf)
-{
-	while (pack->s[++buf])
-	{
-		write(1, &pack->s[buf], 1);
-		pack->retorno++;
-	}
-	pack->cont++;
-}
-
-void	ft_isinterminus(t_printf *pack, int buf)
-{
-	pack->ancho -= pack->len - 1;
-	if (pack->menos == 1)
-	{
-		write(1, "-", 1);
-		pack->retorno++;
-		pack->ancho--;
-	}
-	while (pack->len < pack->preci)
-	{
-		write(1, "0", 1);
-		pack->retorno++;
-		pack->ancho--;
-		pack->preci--;
-	}
-	ft_isinterput(pack, buf);
-	while (--pack->ancho > 0)
-	{
-		write(1, " ", 1);
-		pack->retorno++;
-	}
-}
 
 void	ft_isinterzero(t_printf *pack, int buf)
 {
@@ -138,5 +104,4 @@ void	ft_preisinter(t_printf *pack)
 		pack->len = ft_strlen(pack->s);
 	}
 	ft_isinter(pack, buf);
-	//liberar pack
 }

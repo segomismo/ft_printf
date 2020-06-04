@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/02 19:16:36 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/04 12:31:21 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef	struct t_printf {
 int		ft_isdigit(int c);
 void	isnegative(int *n, int *negative);
 char	*ft_itoa(int n);
+char	*ft_itoa_u(unsigned long int n);
 char	*ft_uitoa(unsigned int n);
 char	*ft_strdup(const char *s1);
 char	*ft_itohex(unsigned int	a);

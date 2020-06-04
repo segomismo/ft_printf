@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/03 19:21:44 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/04 13:01:06 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		ft_printf(const char *format, ...)
 
 /*int		main(void)
 {
-	ft_printf("%.*s", -6, "hello\n");
+	ft_printf("%u", -6);
 	printf("%.*s", -6, "hello\n");
 	ft_printf("%.*s", -9, "hello\n");
 	printf("%.*s", -9, "hello\n");
@@ -115,6 +115,7 @@ int		ft_printf(const char *format, ...)
 	printf("%.*s", -1, "hello\n");
 	ft_printf("%.*s", -3, "hello\n");
 	printf("%.*s", -3, "hello\n");
+	system("leaks a.out");
 }
 
 	char	a, *b, *c, *d, *e, f, g;
