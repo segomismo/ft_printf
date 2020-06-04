@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 11:58:01 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 12:31:21 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:18:25 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-typedef	struct t_printf {
+typedef struct	t_printf{
 	va_list arg;
-	int		cont;//sirve para la posicion en la que esta
+	int		cont;
 	int		retorno;
-	char	*s;//lsun buffer para imprimir strings
+	char	*s;
 	int		minus;
 	int		zero;
 	int		ast;
@@ -75,7 +75,9 @@ void	ft_isstringzero(t_printf *pack, int buf);
 void	ft_isstringsino(t_printf *pack, int buf);
 void	ft_isstringpreci(t_printf *pack, int buf);
 void	ft_isstring(t_printf *pack, int buf);
-void 	ft_prehexami(t_printf *pack);
+void	ft_prehexami(t_printf *pack);
+void	ft_hexamiminus(t_printf *pack, int buf);
+void	ft_hexamiput(t_printf *pack, int buf);
 void	ft_hexamaput(t_printf *pack, int buf);
 void	ft_hexamaminus(t_printf *pack, int buf);
 void	ft_hexamazero(t_printf *pack, int buf);
@@ -93,6 +95,3 @@ void	ft_preporcentaje(t_printf *pack);
 void	ft_tuputamadre(t_printf *pack);
 void	ft_asterisco(t_printf *pack);
 #endif
-/*
-hacer free's de los mallocs de la funcion principal, a la que igualo el malloc de la secundaria
-*/

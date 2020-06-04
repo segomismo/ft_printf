@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:25:47 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:44:44 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:00:13 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_preisinter(t_printf *pack)
 		pack->s = " ";
 	else
 	{
-		if(buf == -2147483648)
+		if (buf == -2147483648)
 			buf = buf * (-1);
 		if ((pack->zero == 1 || pack->preci > 0) && buf < 0)
 		{

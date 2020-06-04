@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 12:48:58 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:55:43 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:08:47 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_hexama(t_printf *pack, int buf)
 			ft_hexamasino(pack, buf);
 	}
 }
-
 
 void	ft_prehexama(t_printf *pack)
 {

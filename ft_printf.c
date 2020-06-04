@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 15:45:07 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 13:01:06 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:02:44 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		escriberaw(const char *format, t_printf *pack)
 			if (ft_isalpha(format[pack->cont]) == 1)
 				ft_casoslet(format, pack);
 			else
-				ft_casosnum(format, pack);//comprobar que no sea nulo, o porcentaje
+				ft_casosnum(format, pack);
 		}
 	}
 	return (pack->cont);
@@ -104,59 +104,3 @@ int		ft_printf(const char *format, ...)
 	free(pack);
 	return (retorno);
 }
-
-/*int		main(void)
-{
-	ft_printf("%u", -6);
-	printf("%.*s", -6, "hello\n");
-	ft_printf("%.*s", -9, "hello\n");
-	printf("%.*s", -9, "hello\n");
-	ft_printf("%.*s", -1, "hello\n");
-	printf("%.*s", -1, "hello\n");
-	ft_printf("%.*s", -3, "hello\n");
-	printf("%.*s", -3, "hello\n");
-	system("leaks a.out");
-}
-
-	char	a, *b, *c, *d, *e, f, g;
-	int		a1, a2, a3, a4, a5;
-	unsigned int	au1, au2, au3;
-	int				hex1, hex2, hex3;
-	unsigned char	hex4;
-	int				total;
-
-	a = 'a';
-	b = "esto es b";
-	c = "esto es c";
-	d = "esto es d";
-	e = "esto es e";
-	f = 'f';
-	g = 'g';
-	a1 = 1;
-	a2 = 22;
-	a3 = -333;
-	a4 = -4444;
-	a5 = 56644;
-	au1 = 0;
-	au2 = -22;
-	au3 = 4294967295;
-	hex1 = 30000;
-	hex2 = 0xFAFA;
-	hex3 = 15;
-	hex4 = 64;
-	ft_printf("esto es lo que vale a(char)->%-111c<-\nesto es lo que vale b(string)->%s\nesto es lo que vale c(string)->%s\nesto es lo que vale d(string)->%s\nesto es lo que vale e(string)->%s\nesto es lo que vale f(char)->%c\nesto es lo que vale g(char)->%c\nesto es lo que vale un int de 1 cifras->%i\nesto es lo que vale un int de 2 cifras->%i\nesto es lo que vale un int de 3 cifras->%i\nesto es lo que vale un int de 4 cifras->%i\nesto es lo que vale un int de 5 cifras->%i\nesto es lo que vale un unsigned int de 1 cifras->%u\nesto es lo que vale un unsigned int de 2 cifras->%u\nesto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
-	printf("PRI esto es lo que vale a(char)->%-111c<-\nPRI esto es lo que vale b(string)->%s\nPRI esto es lo que vale c(string)->%s\nPRI esto es lo que vale d(string)->%s\nPRI esto es lo que vale e(string)->%s\nPRI esto es lo que vale f(char)->%c\nPRI esto es lo que vale g(char)->%c\nPRI esto es lo que vale un int de 1 cifras->%i\nPRI esto es lo que vale un int de 2 cifras->%i\nPRI esto es lo que vale un int de 3 cifras->%i\nPRI esto es lo que vale un int de 4 cifras->%i\nPRI esto es lo que vale un int de 5 cifras->%i\nPRI esto es lo que vale un unsigned int de 1 cifras->%u\nPRI pri esto es lo que vale un unsigned int de 2 cifras->%u\nPRI esto es lo que vale un unsigned int de 3 cifras->%u\n", a, b , c, d, e, f, g, a1, a2, a3, a4, a5, au1, au2, au3);
-	ft_printf("esto es 30000 en hexadecimal en minuscula: %x\nesto es FAFA en hexadecimal en minuscula: %x\nesto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
-	printf("PRI esto es 30000 en hexadecimal en minuscula: %x\nPRI esto es FAFA en hexadecimal en minuscula: %x\nPRI esto es 15 en hexadecimal en minuscula: %x\n", hex1, hex2, hex3);
-	ft_printf("esto es 30000 en hexadecimal en Mayuscula: %X\nesto es FAFA en hexadecimal en Mayuscula: %X\nesto es 15 en hexadecimal en Mayuscula: %X\n", hex1, hex2, hex3);
-	printf("PRI esto es 30000 en hexadecimal en Mayuscula: %X\nPRI esto es FAFA en hexadecimal en Mayuscula: %X\nPRI esto es 15 en hexadecimal en Mayuscula: %X\n", hex1, hex2, hex3);
-	ft_printf("esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
-	printf("PRI esto es 64 con unsigned char en hexadecimal en minuscula: %x\n", hex4);
-	printf("PRIEsto es una prueba de tipo p con el printf: ->%p<-\n", b);
-	ft_printf("Esto es una prueba de tipo p con el printf: ->%p<-\n", b);
-	total = printf("Este es el printfnormal: ->%-111c<-\n", a);
-	printf("Este es el valor del retorno de printf   : %i\n", total);
-	ft_printf("Este es el ft_printf   : ->%-111c<-\n", a);
-	system("leaks a.out");
-	return (0);
-}*/

@@ -6,13 +6,13 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 12:31:06 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:50:43 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:03:35 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int     ft_isdigit(int c)
+int		ft_isdigit(int c)
 {
 	if (c < '0' || c > '9')
 		return (0);

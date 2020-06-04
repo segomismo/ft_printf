@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 12:28:51 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:45:55 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:08:06 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ft_tuputamadre(t_printf *pack)
 	write(1, "x", 1);
 	pack->cont++;
 }
+
 void	ft_preispointer(t_printf *pack)
 {
 	unsigned long int	buf;

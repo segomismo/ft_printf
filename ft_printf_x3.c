@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_por2.c                                   :+:      :+:    :+:   */
+/*   ft_printf_x3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/10 16:35:23 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/05 01:03:04 by ruben            ###   ########.fr       */
+/*   Created: 2020/03/09 16:39:01 by rufranci          #+#    #+#             */
+/*   Updated: 2020/06/05 00:53:51 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_porcenput(t_printf *pack, int buf)
+void	ft_hexamiput(t_printf *pack, int buf)
 {
 	while (pack->s[++buf])
 	{
@@ -22,7 +22,7 @@ void	ft_porcenput(t_printf *pack, int buf)
 	pack->cont++;
 }
 
-void	ft_porcenminus(t_printf *pack, int buf)
+void	ft_hexamiminus(t_printf *pack, int buf)
 {
 	pack->ancho -= pack->len - 1;
 	if (pack->menos == 1)
@@ -38,7 +38,7 @@ void	ft_porcenminus(t_printf *pack, int buf)
 		pack->ancho--;
 		pack->preci--;
 	}
-	ft_porcenput(pack, buf);
+	ft_hexamiput(pack, buf);
 	while (--pack->ancho > 0)
 	{
 		write(1, " ", 1);

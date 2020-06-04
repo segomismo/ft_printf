@@ -6,13 +6,13 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 12:31:06 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:50:15 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:12:00 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_itohex(unsigned	int	a)
+char	*ft_itohex(unsigned	int a)
 {
 	unsigned int		b;
 	int					len;
@@ -36,11 +36,11 @@ char	*ft_itohex(unsigned	int	a)
 	return ((char*)ret);
 }
 
-char	*ft_itohex3(unsigned long int	a)
+char	*ft_itohex3(unsigned long int a)
 {
-	unsigned long int		b;
-	int		len;
-	char	*ret;
+	unsigned long int	b;
+	int					len;
+	char				*ret;
 
 	len = 2;
 	b = a;
@@ -60,7 +60,7 @@ char	*ft_itohex3(unsigned long int	a)
 	return ((char*)ret);
 }
 
-char	*ft_itohex2(unsigned int	a)
+char	*ft_itohex2(unsigned int a)
 {
 	unsigned int		b;
 	int					len;
@@ -84,7 +84,7 @@ char	*ft_itohex2(unsigned int	a)
 	return ((char*)ret);
 }
 
-int	ft_isalpha(int a)
+int		ft_isalpha(int a)
 {
 	if (a < 'A' || (a > 'Z' && a < 'a') || a > 'z')
 		return (0);
