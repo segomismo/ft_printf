@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:42:24 by rufranci          #+#    #+#             */
-/*   Updated: 2020/06/04 22:46:51 by ruben            ###   ########.fr       */
+/*   Updated: 2020/06/05 13:09:10 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_isstringminus(t_printf *pack, int buf)
 	if (pack->preci != 0 && pack->preci < pack->len)
 		pack->ancho -= pack->preci - 1;
 	else if (pack->preci == 0 && pack->punto == 1)
-		pack->ancho = pack->ancho + 1;
+		pack->ancho += 1;
 	else
 		pack->ancho -= pack->len - 1;
 	ft_isstringput(pack, buf);
